@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,19 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('/blog')->group(function() {
-    Route::get('/', function() {
-        return Post::paginate(25);
-    })->name('blog.index');
+Route::prefix('/blog')->name('blog.')->controller(BlogController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
 
-    Route::get('/{slug}-{id}', function(string $slug, string $id) {
-        $post = Post::findOrFail($id);
-        if ($post->slug !== $slug) {
-            return to_route('blog.show', ['slug' => $post->slug, 'id' => $post->id]);
-        }
-        return $post;
-    })->where([
+    Route::get('/{slug}-{id}', 'show')->where([
         'id' => '[0-9]+',
         'slug' => '[a-z0-9\-]+',
-    ])->name('blog.show');
+    ])->name('show');
 });
