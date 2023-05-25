@@ -25,4 +25,6 @@ Route::prefix('/blog')->name('blog.')->controller(BlogController::class)->group(
         'id' => '[0-9]+',
         'slug' => '[a-z0-9\-]+',
     ])->name('show');
+
+    Route::get('/search', 'search')->name('search');
 });
