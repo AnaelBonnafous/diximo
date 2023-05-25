@@ -4,8 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
-class PostStoreRequest extends FormRequest
+class PostFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +24,9 @@ class PostStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'slug' => ['required_if:title,null', 'string', 'regex:/^[a-z0-9\-]+$/'],
-            'title' => ['required_if:slug,null', 'string'],
+            'slug' => ['sometimes', 'string', 'regex:/^[a-z0-9\-]+$/', Rule::unique('posts')->ignore($this->route()->parameter('post'))],
+            'title' => ['required', 'string', 'min:3'],
+            'content' => ['required', 'string', 'min:3'],
         ];
     }
 

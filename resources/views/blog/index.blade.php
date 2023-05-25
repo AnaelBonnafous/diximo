@@ -7,20 +7,23 @@
     <h1 class="text-3xl text-center text-slate-800">Mon blog</h1>
 
     <div class="flex flex-col gap-8 my-8">
+      <div class="flex justify-center">
+        <a href="{{ route('blog.create') }}" class="py-2 text-center bg-white rounded w-36">Nouvel article</a>
+      </div>
       @forelse ($posts as $post)
-          <a href="{{ route('blog.show', ['post' => $post]) }}">
-            <article class="p-4 bg-white rounded-md">
-              <h2 class="text-xl text-slate-800">{{ $post->title }}</h2>
-              <p class="text-sm text-slate-500">{{ $post->content }}</p>
-            </article>
-          </a>
+        <a href="{{ route('blog.show', ['post' => $post]) }}">
+          <article class="p-4 bg-white rounded-md">
+            <h2 class="text-xl text-slate-800">{{ $post->title }}</h2>
+            <p class="text-sm text-slate-500">{{ $post->content }}</p>
+          </article>
+        </a>
       @empty
         <p>pas d'articles...</p>
       @endforelse
     </div>
 
     <div>
-        {{ $posts->links() }}
+      {{ $posts->links() }}
     </div>
   </div>
 @endsection

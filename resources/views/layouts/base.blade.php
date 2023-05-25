@@ -23,7 +23,7 @@
             $routeName = request()->route()->getName();
         @endphp
 
-        <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+        <div class="relative min-h-screen bg-gray-100 bg-center sm:flex sm:justify-center sm:items-center bg-dots-darker dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
             <nav class="fixed top-4">
                 <ul class="flex gap-4">
                     <li>
@@ -34,6 +34,13 @@
                     </li>
                 </ul>
             </nav>
-            @yield('content')
+            <div>
+                @if (session('success'))
+                    <div class="py-2 mb-4 text-center text-white bg-green-500 rounded-xl">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @yield('content')
+            </div>
         </div>
     </body>
