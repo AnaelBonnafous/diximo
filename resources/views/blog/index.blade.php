@@ -8,8 +8,8 @@
 
     <div class="flex flex-col gap-8 my-8">
       @forelse ($posts as $post)
-          <a href="{{ route('blog.show', ['slug' => $post->slug, 'id' => $post->id]) }}">
-            <article class="bg-white p-4 rounded-md">
+          <a href="{{ route('blog.show', ['post' => $post]) }}">
+            <article class="p-4 bg-white rounded-md">
               <h2 class="text-xl text-slate-800">{{ $post->title }}</h2>
               <p class="text-sm text-slate-500">{{ $post->content }}</p>
             </article>
