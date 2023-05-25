@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\View;
 
 class BlogController extends Controller
 {
-    public function index(): Paginator
+    public function index(): View
     {
-        return Post::paginate(25);
+        $posts = Post::paginate(1);
+
+        return view('blog.index', compact('posts'));
     }
 
-    public function show(string $slug, string $id): RedirectResponse|Post
+    public function show(string $slug, string $id): View
     {
         $post = Post::findOrFail($id);
 
@@ -21,6 +22,6 @@ class BlogController extends Controller
             return to_route('blog.show', ['slug' => $post->slug, 'id' => $post->id]);
         }
 
-        return $post;
+        return view('blog.show', compact('post'));
     }
 }
